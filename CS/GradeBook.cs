@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CS
 {
-    class GradeBook
+    public class GradeBook
     {
         private List<float> grades;
 
@@ -36,7 +36,7 @@ namespace CS
                 }
                 */
                 stats.HighestGrade = Math.Max(grade, stats.HighestGrade);
-                stats.LowestGrade = Math.Min(grade, stats.HighestGrade);
+                stats.LowestGrade = Math.Min(grade, stats.LowestGrade);
                 sum += grade;
             }
 

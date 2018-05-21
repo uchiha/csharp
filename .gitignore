@@ -1,2 +1,4 @@
 ./CS/bin
 ./CS/obj
+./CS.Tests/obj
+./CS.Tests/bin
