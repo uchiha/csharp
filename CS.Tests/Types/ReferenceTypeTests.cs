@@ -8,8 +8,45 @@ using System.Threading.Tasks;
 namespace CS.Tests.Types
 {
     [TestFixture]
-    class ReferenceTypeTests
+    class TypeTests
     {
+        [Test]
+        public void ValueTypesPassedByValue()
+        {
+            int x = 46;
+            IncrementNumber(x);
+
+            Assert.AreEqual(46, x);
+        }
+
+        private void IncrementNumber(int number)
+        {
+            number += 1;
+        }
+        [Test]
+        public void ReferenceTypesPassedByValue()
+        {
+            GradeBook book1 = new GradeBook();
+            GradeBook book2 = book1;
+
+            // when this method was invoked, the value inside of book2
+            // is copied into the parameter "book" of that method
+            // and that value is a pointer so there is a period of time during
+            // exec of this test where we have 3 variables that are pointing to 
+            // the same GradeBook obj. They are book1, book2 and the parameter
+            // book. And any changes that we make to the GradeBook through
+            // any of those variables, they will be visible if we look through
+            // that obj through any of the variables. 
+            GiveBookAName(book2);
+
+            Assert.AreEqual("A GradeBook", book1.Name);
+        }
+
+        private void GiveBookAName(GradeBook book)
+        {
+            book.Name = "A GradeBook";
+        }
+
         [Test]
         public void StringComparisons()
         {

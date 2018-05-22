@@ -14,3 +14,6 @@
 - Another issue was, the method ComputeStatistics() returns an object of type GradeStatistics that is also internal. That was needed to be set to public as well. 
 - Note, the issue was the ComputeStatistics() was accessible to anyone who has access to a GradeBook. But the same method returns GradeStatistics, that is why initially, there was an inconsistent accessibility error. It doesn't make sense to give access to a method that anyone can use if it returns a type that no one outside can see. 
 - to solve this problem, one way is to set ComputeStatistics() to internal, that means anyone will be able to see this class, even outside assemblies, but only code in the same assembly will be able to see and invoke this method.
+
+[23052018]
+- C# the default is pass by value, meaning that when you call a method that takes a parameter BY DEFAULT the value in the parameter you pass will be copied into the variable that is a parameter to the method. And what you pass is always a copy, unless...
