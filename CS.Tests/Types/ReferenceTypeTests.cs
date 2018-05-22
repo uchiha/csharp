@@ -11,14 +11,28 @@ namespace CS.Tests.Types
     class ReferenceTypeTests
     {
         [Test]
-        public void VariablesHoldAReference()
+        public void GradeBookVariablesHoldAReference()
         {
             GradeBook g1 = new GradeBook();
             GradeBook g2 = g1;
 
+            g1 = new GradeBook();
             g1.Name = "Scott's grade book!";
-            Assert.AreEqual(g1.Name, g2.Name);
-            Assert.AreEqual("Scott's grade book!", g2.Name);
+            Assert.AreNotEqual(g1.Name, g2.Name);
+            //Assert.AreEqual("Scott's grade book!", g2.Name);
+        }
+
+        [Test]
+        public void IntVariablesHoldAValue()
+        {
+            // these are value types, typically called primitives
+            // it does not hold a pointer to any address in the memory
+            int x1 = 100;
+            int x2 = x1;
+
+            x1 = 4;
+
+            Assert.AreNotEqual(x1, x2);
         }
     }
 }
