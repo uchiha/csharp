@@ -11,6 +11,17 @@ namespace CS.Tests.Types
     class ReferenceTypeTests
     {
         [Test]
+        public void StringComparisons()
+        {
+            string name1 = "Scott";
+            string name2 = "scott";
+
+            bool result = String.Equals(name1, name2, StringComparison.InvariantCultureIgnoreCase);
+            //bool result = String.Equals(name1, name2);  this fails
+            Assert.IsTrue(result);
+        }
+
+        [Test]
         public void GradeBookVariablesHoldAReference()
         {
             GradeBook g1 = new GradeBook();
