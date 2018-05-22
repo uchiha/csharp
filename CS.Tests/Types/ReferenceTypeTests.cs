@@ -11,12 +11,38 @@ namespace CS.Tests.Types
     class TypeTests
     {
         [Test]
+        public void UppercaseAString()
+        {
+            string name = "scott";
+            name = name.ToUpper(); // note that these types of methods does not modify the string we are pointing to
+                            // instead they create a new string and return that string from the method. So we
+                            // need to capture that by assigning a ref to that new string back in our name variable
+
+            Assert.AreEqual("SCOTT", name);
+        }
+
+        [Test]
+        public void AddDaysToADateTime()
+        {
+            DateTime date = new DateTime(2015, 1, 1);
+            date = date.AddDays(1); // if date was not initialized here, this test will fail! :|
+                                    // because AddDays will construct a new DateTime. So this assignment 
+                                    // will assign that new DateTime to the one we did here.
+
+            Assert.AreEqual(2, date.Day);
+        }
+
+        [Test]
         public void ValueTypesPassedByValue()
         {
             int x = 46;
             IncrementNumber(x);
 
             Assert.AreEqual(46, x);
+            // it didn't become a 47, why? what happened was we took the 46 that is inside of x 
+            // and that is being copied into the parameter "number" when IncrementNumber was invoked.
+            // since that is a copy of that value, we can do anything in IncrementNumber and nothing will 
+            // happen in the context of this method: ValueTypesPassedByValue()
         }
 
         private void IncrementNumber(int number)
