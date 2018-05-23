@@ -33,7 +33,8 @@ namespace CS
             WriteResult("Average" , stats.AverageGrade);
             WriteResult("Highest", (int)stats.HighestGrade);
             WriteResult("Lowest", stats.LowestGrade);
-            
+            WriteResult("Grade", stats.LetterGrade);
+
 
         }
 
@@ -51,9 +52,11 @@ namespace CS
 
         static void WriteResult(string desc, float result)
         {
-            //Console.WriteLine(desc + ": " + result);
-            //Console.WriteLine("{0}: {1:F2}", desc, result); // the F2 denotes that we want to display the float in 2 decimal places
-            //Console.WriteLine("{0}: {1}", desc, result); // formatting string style
+            Console.WriteLine($"{desc}: {result:F2}"); // new style! :)
+        }
+
+        static void WriteResult(string desc, string result)
+        {
             Console.WriteLine($"{desc}: {result:F2}"); // new style! :)
         }
     }
