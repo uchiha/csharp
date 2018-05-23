@@ -18,3 +18,4 @@
 [23052018]
 - C# the default is pass by value, meaning that when you call a method that takes a parameter BY DEFAULT the value in the parameter you pass will be copied into the variable that is a parameter to the method. And what you pass is always a copy, unless...
 - the name of the test class does not matter except in the output of the test explorer. So changing the name of the class is ok unlike in Java.
+- arrays are always a reference type.

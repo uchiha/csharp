@@ -11,6 +11,25 @@ namespace CS.Tests.Types
     class TypeTests
     {
         [Test]
+        public void UsingArrays()
+        {
+            float[] grades;
+            grades = new float[3];
+
+            AddGrades(grades);
+
+            Assert.AreEqual(89.1f, grades[1]);
+        }
+
+        private void AddGrades(float[] grades)
+        {
+            //grades = new float[5]; // this will cause the test to fail because remember that arrays in C#
+                                   // are reference types. thus, it will create a new array in memory here
+                                   // and will no longer point to the same array that is used in the parameter.
+            grades[1] = 89.1f;
+        }
+
+        [Test]
         public void UppercaseAString()
         {
             string name = "scott";
