@@ -9,7 +9,30 @@ namespace CS
     public class GradeBook
     {
         private List<float> grades;
-        public string Name;
+        private string _name; // this is something to aid the "Name" field below
+                              // through the use of getters and setters
+        
+        // this field is set with getters and setters now.
+        public string Name
+        {
+            // just returns _name
+            get
+            {
+                return _name;
+            }
+
+            // with a logic that prevents 
+            // override of values that we dont
+            // want from someone consuming our class
+            set
+            {
+                if(!String.IsNullOrEmpty(value))
+                {
+                    _name = value;
+                }
+            }
+            
+        }
 
         public GradeBook()
         {
