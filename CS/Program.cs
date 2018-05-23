@@ -24,6 +24,8 @@ namespace CS
             // Thus the += here will curiously do what is shown.
             book.NameChanged += new NameChangedDelegate(OnNameChange);
             book.NameChanged += new NameChangedDelegate(OnNameChange2);
+            //book.NameChanged = null;  <== this becomes an error, because it is illegal in C# to obliterate all events.
+                                          //we can only add (+=) or subtract (-=)
             book.Name = "Sample!";
             book.Name = "Another change is here!";
             //both lines below wont work because we set a logic

@@ -22,3 +22,7 @@
 - takeaway: ANY TYPE in C# is either reference or value types.
 - delegates are a bit confusing. Scenario: something else in the application needs to know when the name of the grade book is changing. Maybe that thing is a data binding framework or whatever that needs to update the screen when a new Grade book name or whenever a grade book name changes. In our example, the only place or code that knows when the name is changing is in the setter of "Name". Delegate is like in JavaScript, where we set the method to a particular var. 
 - on delegates again, on a UI analogy, lets say we are writing a class that's going to have a button associated with it because its a part of a UI, and our class the code inside will know when it is click, but how can our class announce to the rest of the world when that button is clicked? because chances are its not just me who is interested when that is clicked, we might need to tell other pieces of the app when that button is clicked. Ultimately, its done on events on top of delegates. :)
+
+[24052018]
+- at this point, the author discussed that the only need to make the code a legit event is to add the keyword event on the initialization of the delegate: public event NameChangedDelegate NameChanged;
+- the effect is we will no longer be able to obliterate or override event subscriptions. We can only add or subtract events, and that is what we want in events because we dont want to mess up other subscriptions in our events.

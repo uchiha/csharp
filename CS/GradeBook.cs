@@ -42,7 +42,9 @@ namespace CS
             
         }
 
-        public NameChangedDelegate NameChanged;
+        // simply add the word "event" to this delegate
+        // and voila! its an event
+        public event NameChangedDelegate NameChanged;
 
         public GradeBook()
         {
