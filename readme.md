@@ -26,3 +26,7 @@
 [24052018]
 - at this point, the author discussed that the only need to make the code a legit event is to add the keyword event on the initialization of the delegate: public event NameChangedDelegate NameChanged;
 - the effect is we will no longer be able to obliterate or override event subscriptions. We can only add or subtract events, and that is what we want in events because we dont want to mess up other subscriptions in our events.
+- events in C# has a convention that 99.9% of devs follow wherein it passes along 2 parameters. The first is the sender of the event e.g. if in this case the gradebook announces that it will change its name, it should send itself too. 2nd param contains all the needed parameters about that event.
+- we will build a custom class for this purpose.
+- in C#, inside of every non-static method in a class or struct, there is an implicit variable called "this". And "this" will reference the object that I'm inside of. 
+- Not all programming envs use events take note. This is common in some sort of desktop program that's a C# application that runs under windows or a mobile phone. Its common that the UI elements will use events to let our code know when something was clicked on or something was hovered over. 

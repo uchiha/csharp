@@ -28,13 +28,17 @@ namespace CS
             {
                 if(!String.IsNullOrEmpty(value))
                 {
-                    // On delegates, #1, make a check if the name is changing.
-                    // create a .cs file, #2 create NameChangedDelegate.cs
-                    // delegates only checks what the method's return type is
-                    // and the parameter types it takes.
+                    // This will follow the convention on events and delegates.
+                    // Wherein the first argument will be the object that sends the 
+                    // event and the next are other stuff to be used for that event.
+                    
                     if(_name != value)
                     {
-                        NameChanged(_name, value);
+                        NameChangedEventArgs args = new NameChangedEventArgs();
+                        args.ExistingName = _name;
+                        args.NewName = value;
+
+                        NameChanged(this, args);
                     }
                     _name = value;
                 }
