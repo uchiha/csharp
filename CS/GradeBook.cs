@@ -28,14 +28,25 @@ namespace CS
             {
                 if(!String.IsNullOrEmpty(value))
                 {
+                    // On delegates, #1, make a check if the name is changing.
+                    // create a .cs file, #2 create NameChangedDelegate.cs
+                    // delegates only checks what the method's return type is
+                    // and the parameter types it takes.
+                    if(_name != value)
+                    {
+                        NameChanged(_name, value);
+                    }
                     _name = value;
                 }
             }
             
         }
 
+        public NameChangedDelegate NameChanged;
+
         public GradeBook()
         {
+            _name = "Empty!!";
             grades = new List<float>();
         }
 

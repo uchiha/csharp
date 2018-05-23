@@ -17,8 +17,15 @@ namespace CS
             //synth.Speak("Hello! This is the grade book program");
             
             GradeBook book = new GradeBook();
-            book.Name = "Sample!";
 
+            // #3 on delegates, when we first created a book
+            // we want to do this below...
+            // Also a delegate can hold references to multiple methods. 
+            // Thus the += here will curiously do what is shown.
+            book.NameChanged += new NameChangedDelegate(OnNameChange);
+            book.NameChanged += new NameChangedDelegate(OnNameChange2);
+            book.Name = "Sample!";
+            book.Name = "Another change is here!";
             //both lines below wont work because we set a logic
             // to check for null and empty strings in our setters.
             book.Name = null;
@@ -35,6 +42,16 @@ namespace CS
             WriteResult("Lowest", stats.LowestGrade);
             
 
+        }
+
+        static void OnNameChange(string existingName, string newName)
+        {
+            Console.WriteLine($"Grade book changing name from {existingName} to {newName}");
+        }
+
+        static void OnNameChange2(string existingName, string newName)
+        {
+            Console.WriteLine("***");
         }
 
         static void WriteResult(string desc, int result)
