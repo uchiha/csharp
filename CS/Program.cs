@@ -12,13 +12,18 @@ namespace CS
     {
         static void Main(string[] args)
         {
-            GradeBook book = new ThrowAwayGradeBook();
+            GradeBook book = CreateThrowAwayGradeBook();
 
             //GetBookName(book);
             AddGradesToBook(book);
             SaveGrades(book);
             WriteResults(book);
 
+        }
+
+        private static ThrowAwayGradeBook CreateThrowAwayGradeBook()
+        {
+            return new ThrowAwayGradeBook();
         }
 
         private static void WriteResults(GradeBook book)
