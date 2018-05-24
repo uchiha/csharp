@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Speech.Synthesis;
 using System.Text;
@@ -10,34 +11,86 @@ namespace CS
     class Program
     {
         static void Main(string[] args)
-        {        
+        {
             GradeBook book = new GradeBook();
 
-            
+
             book.NameChanged += OnNameChange;
-            Console.WriteLine("Write a book name: ");
-            string check = Console.ReadLine();
+            GetBookName(book);
+            AddGradesToBook(book);
+            SaveGrades(book);
+            WriteResults(book);
 
-            while (string.IsNullOrEmpty(check))
-            {
-                Console.WriteLine("Write a book name: ");
-                check = Console.ReadLine();
-            }
-            book.Name = check;
-            //book.Name = "Another change is here!";
-            
-            book.AddGrade(91);
-            book.AddGrade(89.5f);
-            book.AddGrade(75);
+        }
 
+        private static void WriteResults(GradeBook book)
+        {
             GradeStatistics stats = book.ComputeStatistics();
-            Console.WriteLine(book.Name);
-            WriteResult("Average" , stats.AverageGrade);
+            WriteResult("Average", stats.AverageGrade);
             WriteResult("Highest", (int)stats.HighestGrade);
             WriteResult("Lowest", stats.LowestGrade);
             WriteResult(stats.Description, stats.LetterGrade);
+        }
 
+        private static void SaveGrades(GradeBook book)
+        {
+            //File.CreateText() returns something 
+            //of type StreamWriter. Note that StreamWriter
+            //is a type of TextWriter. This action will create
+            //a file Grades.txt in the bin folder where the
+            //assembly lives.
+            //Something happened here that we are writing something
+            //to the stream. Be careful on streams, weather File or 
+            //Network stream. Streams has the tendency to buffer any
+            //information you write into them. IF YOU DONT flush, close
+            //or dispose of that stream, there is a chance the program
+            //can exit without the information arriving in the intended destination.
+            //that is what outputFile.Close() is for.
 
+            /*
+             * this approach works, but for streams, using keyword can be used too!
+            StreamWriter outputFile = null;
+            try
+            {
+                outputFile = File.CreateText("Grades.txt");
+                book.WriteGrades(outputFile);
+            }
+            finally
+            {
+                outputFile.Close();
+            }
+            */
+
+            //this stuff does not even need the close method
+            //it will take care on its own because using handles streams.
+            using (StreamWriter outputFile = File.CreateText("Grades.txt"))
+            {
+                book.WriteGrades(outputFile);
+            }
+        }
+
+        private static void AddGradesToBook(GradeBook book)
+        {
+            book.AddGrade(91);
+            book.AddGrade(89.5f);
+            book.AddGrade(75);
+        }
+
+        private static void GetBookName(GradeBook book)
+        {
+            try
+            {
+                Console.WriteLine("Write a book name: ");
+                book.Name = Console.ReadLine();
+            }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            catch (NullReferenceException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
         static void OnNameChange(object sender, NameChangedEventArgs args)
@@ -45,7 +98,7 @@ namespace CS
             Console.WriteLine($"Grade book changing name from {args.ExistingName} to {args.NewName}");
         }
 
-        
+
 
         static void WriteResult(string desc, int result)
         {
@@ -54,7 +107,7 @@ namespace CS
 
         static void WriteResult(string desc, float result)
         {
-            Console.WriteLine($"{desc}: {result:F2}"); // new style! :)
+            Console.WriteLine($"{desc}: {result:F2}");
         }
 
         static void WriteResult(string desc, string result)

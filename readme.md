@@ -44,4 +44,6 @@
    at CS.GradeBook.set_Name(String value) in C:\myworkspace\CS\CS\GradeBook.cs:line 32
    at CS.Program.Main(String[] args) in C:\myworkspace\CS\CS\Program.cs:line 24
   
-  the author said that as the program is executing and you call a method that calls another method that calls another, there is a datastructure that is being build internally called a STACK. And with each method that you call something is pushed onto the stack. In this case, the exception was thrown in line 32 of GradeBook.cs, but its not that helpful here in terms of tracking. What's something that is helpful is usually further up the stack, and what's further is Program.cs on line 24.
+  the author said that as the program is executing and you call a method that calls another method that calls another, there is a datastructure that is being build internally called a STACK. And with each method that you call something is pushed onto the stack. In this case, the exception was thrown in line 32 of GradeBook.cs, but its not that helpful here in terms of tracking. What's something that is helpful is usually further up the stack, and what's further is Program.cs on line 24. That is what caused this problem.
+- on the "finally" episode, we were able to refactor the main method of the Program.cs file. Doing this requires highlighting the codes then pressing CTRL + .
+  this will generate methods.
