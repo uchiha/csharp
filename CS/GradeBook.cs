@@ -9,7 +9,7 @@ namespace CS
 {
     public class GradeBook
     {
-        private List<float> grades;
+        protected List<float> grades;
         private string _name; // this is something to aid the "Name" field below
                               // through the use of getters and setters
 

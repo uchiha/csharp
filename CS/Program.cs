@@ -12,11 +12,9 @@ namespace CS
     {
         static void Main(string[] args)
         {
-            GradeBook book = new GradeBook();
+            GradeBook book = new ThrowAwayGradeBook();
 
-
-            book.NameChanged += OnNameChange;
-            GetBookName(book);
+            //GetBookName(book);
             AddGradesToBook(book);
             SaveGrades(book);
             WriteResults(book);
@@ -78,6 +76,7 @@ namespace CS
 
         private static void GetBookName(GradeBook book)
         {
+            book.NameChanged += OnNameChange;
             try
             {
                 Console.WriteLine("Write a book name: ");
@@ -97,8 +96,6 @@ namespace CS
         {
             Console.WriteLine($"Grade book changing name from {args.ExistingName} to {args.NewName}");
         }
-
-
 
         static void WriteResult(string desc, int result)
         {
