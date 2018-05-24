@@ -7,47 +7,14 @@ using System.Threading.Tasks;
 
 namespace CS
 {
-    public class GradeBook
+    public class GradeBook : GradeTracker
     {
         protected List<float> grades;
-        private string _name; // this is something to aid the "Name" field below
-                              // through the use of getters and setters
 
-        // this field is set with getters and setters now.
-        public string Name
-        {
-            // just returns _name
-            get
-            {
-                return _name;
-            }
-
-            // with a logic that prevents 
-            // override of values that we dont
-            // want from someone consuming our class
-            set
-            {
-
-                if (string.IsNullOrEmpty(value))
-                {
-                    throw new ArgumentException("Name can't be null or empty!");
-                }
-
-                if (_name != value)
-                {
-                    NameChangedEventArgs args = new NameChangedEventArgs();
-                    args.ExistingName = _name;
-                    args.NewName = value;
-
-                    NameChanged(this, args);
-                }
-                _name = value;
-
-            }
-
-        }
-
-        internal void WriteGrades(TextWriter destination)
+        // used to be "virtual" but since we implemented GradeTracker
+        // need to be "override" to avoid error that this class didn't
+        // implement this method.
+        public override void WriteGrades(TextWriter destination)
         {
             for (int i = 0; i < grades.Count; i++)
             {
@@ -56,22 +23,24 @@ namespace CS
             
         }
 
-        // simply add the word "event" to this delegate
-        // and voila! its an event
-        public event NameChangedDelegate NameChanged;
-
         public GradeBook()
         {
             _name = "Empty!!";
             grades = new List<float>();
         }
 
-        public void AddGrade(float grade)
+        // used to be "virtual" but since we implemented GradeTracker
+        // need to be "override" to avoid error that this class didn't
+        // implement this method.
+        public override void AddGrade(float grade)
         {
             grades.Add(grade);
         }
 
-        public virtual GradeStatistics ComputeStatistics()
+        // used to be "virtual" but since we implemented GradeTracker
+        // need to be "override" to avoid error that this class didn't
+        // implement this method.
+        public override GradeStatistics ComputeStatistics()
         {
             Console.WriteLine("@GradeBook::ComputeStatistics");
             GradeStatistics stats = new GradeStatistics();

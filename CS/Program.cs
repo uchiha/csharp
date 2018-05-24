@@ -10,9 +10,12 @@ namespace CS
 {
     class Program
     {
+        // at this point, we are no longer using a very specific
+        // implementation, but a more general one. That is 
+        // "GradeTracker"
         static void Main(string[] args)
         {
-            GradeBook book = CreateThrowAwayGradeBook();
+            GradeTracker book = CreateThrowAwayGradeBook();
 
             //GetBookName(book);
             AddGradesToBook(book);
@@ -21,12 +24,12 @@ namespace CS
 
         }
 
-        private static ThrowAwayGradeBook CreateThrowAwayGradeBook()
+        private static GradeTracker CreateThrowAwayGradeBook()
         {
             return new ThrowAwayGradeBook();
         }
 
-        private static void WriteResults(GradeBook book)
+        private static void WriteResults(GradeTracker book)
         {
             GradeStatistics stats = book.ComputeStatistics();
             WriteResult("Average", stats.AverageGrade);
@@ -35,7 +38,7 @@ namespace CS
             WriteResult(stats.Description, stats.LetterGrade);
         }
 
-        private static void SaveGrades(GradeBook book)
+        private static void SaveGrades(GradeTracker book)
         {
             //File.CreateText() returns something 
             //of type StreamWriter. Note that StreamWriter
@@ -72,14 +75,14 @@ namespace CS
             }
         }
 
-        private static void AddGradesToBook(GradeBook book)
+        private static void AddGradesToBook(GradeTracker book)
         {
             book.AddGrade(91);
             book.AddGrade(89.5f);
             book.AddGrade(75);
         }
 
-        private static void GetBookName(GradeBook book)
+        private static void GetBookName(GradeTracker book)
         {
             book.NameChanged += OnNameChange;
             try
