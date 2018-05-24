@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CS
 {
-    public abstract class GradeTracker
+    public abstract class GradeTracker : IGradeTracker
     {
         // we need the ability to add a new grade to a tracker.
         // but we don't know how that grade will be stored. 

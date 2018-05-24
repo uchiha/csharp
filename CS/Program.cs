@@ -15,7 +15,7 @@ namespace CS
         // "GradeTracker"
         static void Main(string[] args)
         {
-            GradeTracker book = CreateThrowAwayGradeBook();
+            IGradeTracker book = CreateThrowAwayGradeBook();
 
             //GetBookName(book);
             AddGradesToBook(book);
@@ -24,12 +24,12 @@ namespace CS
 
         }
 
-        private static GradeTracker CreateThrowAwayGradeBook()
+        private static IGradeTracker CreateThrowAwayGradeBook()
         {
             return new ThrowAwayGradeBook();
         }
 
-        private static void WriteResults(GradeTracker book)
+        private static void WriteResults(IGradeTracker book)
         {
             GradeStatistics stats = book.ComputeStatistics();
             WriteResult("Average", stats.AverageGrade);
@@ -38,7 +38,7 @@ namespace CS
             WriteResult(stats.Description, stats.LetterGrade);
         }
 
-        private static void SaveGrades(GradeTracker book)
+        private static void SaveGrades(IGradeTracker book)
         {
             //File.CreateText() returns something 
             //of type StreamWriter. Note that StreamWriter
@@ -75,20 +75,27 @@ namespace CS
             }
         }
 
-        private static void AddGradesToBook(GradeTracker book)
+        private static void AddGradesToBook(IGradeTracker book)
         {
             book.AddGrade(91);
             book.AddGrade(89.5f);
             book.AddGrade(75);
         }
 
+        // the parameter here was not changed to an interface
+        // because of the line: book.NameChanged += OnNameChange;
+        // this will cause the program to force IGradeTracker to
+        // have this property, which is an event and be
+        // implemented.
         private static void GetBookName(GradeTracker book)
         {
             book.NameChanged += OnNameChange;
             try
             {
                 Console.WriteLine("Write a book name: ");
-                book.Name = Console.ReadLine();
+                book.Name = Console.ReadLine(); // this will be an error if IGradeTracker does not set this.
+                                                // because any class that implements this should have this property too
+                                                // that can be written to and read.
             }
             catch (ArgumentException ex)
             {
