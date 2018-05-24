@@ -30,3 +30,18 @@
 - we will build a custom class for this purpose.
 - in C#, inside of every non-static method in a class or struct, there is an implicit variable called "this". And "this" will reference the object that I'm inside of. 
 - Not all programming envs use events take note. This is common in some sort of desktop program that's a C# application that runs under windows or a mobile phone. Its common that the UI elements will use events to let our code know when something was clicked on or something was hovered over. 
+- in terms of flow, I was confused with continue, here is an example
+  foreach(int age in ages)
+  {
+     if(age ==2)
+	 {
+	    continue;
+	 }
+  }
+  this basically means that in iteration, if 2 was encountered, don't do anything!
+- on the throw episode:
+  Unhandled Exception: System.ArgumentException: Name can't be null or empty!
+   at CS.GradeBook.set_Name(String value) in C:\myworkspace\CS\CS\GradeBook.cs:line 32
+   at CS.Program.Main(String[] args) in C:\myworkspace\CS\CS\Program.cs:line 24
+  
+  the author said that as the program is executing and you call a method that calls another method that calls another, there is a datastructure that is being build internally called a STACK. And with each method that you call something is pushed onto the stack. In this case, the exception was thrown in line 32 of GradeBook.cs, but its not that helpful here in terms of tracking. What's something that is helpful is usually further up the stack, and what's further is Program.cs on line 24.

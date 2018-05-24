@@ -21,7 +21,7 @@ namespace CS
             // below will still work and easier in the eyes. This is a legal C# code.
             book.NameChanged += OnNameChange;
             
-            book.Name = "Sample!";
+            book.Name = "";
             book.Name = "Another change is here!";
             
             book.AddGrade(91);
@@ -57,7 +57,7 @@ namespace CS
 
         static void WriteResult(string desc, string result)
         {
-            Console.WriteLine($"{desc}: {result:F2}"); // new style! :)
+            Console.WriteLine($"{desc}: {result}"); // new style! :)
         }
     }
 }

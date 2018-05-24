@@ -11,7 +11,7 @@ namespace CS
         private List<float> grades;
         private string _name; // this is something to aid the "Name" field below
                               // through the use of getters and setters
-        
+
         // this field is set with getters and setters now.
         public string Name
         {
@@ -26,24 +26,24 @@ namespace CS
             // want from someone consuming our class
             set
             {
-                if(!String.IsNullOrEmpty(value))
-                {
-                    // This will follow the convention on events and delegates.
-                    // Wherein the first argument will be the object that sends the 
-                    // event and the next are other stuff to be used for that event.
-                    
-                    if(_name != value)
-                    {
-                        NameChangedEventArgs args = new NameChangedEventArgs();
-                        args.ExistingName = _name;
-                        args.NewName = value;
 
-                        NameChanged(this, args);
-                    }
-                    _name = value;
+                if (string.IsNullOrEmpty(value))
+                {
+                    throw new ArgumentException("Name can't be null or empty!");
                 }
+
+                if (_name != value)
+                {
+                    NameChangedEventArgs args = new NameChangedEventArgs();
+                    args.ExistingName = _name;
+                    args.NewName = value;
+
+                    NameChanged(this, args);
+                }
+                _name = value;
+
             }
-            
+
         }
 
         // simply add the word "event" to this delegate
@@ -63,10 +63,10 @@ namespace CS
 
         public GradeStatistics ComputeStatistics()
         {
-            GradeStatistics stats =  new GradeStatistics();
+            GradeStatistics stats = new GradeStatistics();
 
             float sum = 0;
-            foreach(float grade in grades)
+            foreach (float grade in grades)
             {
                 /* this is one approach
                  * below is another, using static
