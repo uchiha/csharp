@@ -10,19 +10,21 @@ namespace CS
     class Program
     {
         static void Main(string[] args)
-        {
-            
-            
-                      
+        {        
             GradeBook book = new GradeBook();
 
-            // the previous syntax of book.NameChanged += new NameChangedDelegate(OnNameChanged);
-            // is a little verbose. "new NameChangedDelegate()" can actually be removed and
-            // below will still work and easier in the eyes. This is a legal C# code.
-            book.NameChanged += OnNameChange;
             
-            book.Name = "";
-            book.Name = "Another change is here!";
+            book.NameChanged += OnNameChange;
+            Console.WriteLine("Write a book name: ");
+            string check = Console.ReadLine();
+
+            while (string.IsNullOrEmpty(check))
+            {
+                Console.WriteLine("Write a book name: ");
+                check = Console.ReadLine();
+            }
+            book.Name = check;
+            //book.Name = "Another change is here!";
             
             book.AddGrade(91);
             book.AddGrade(89.5f);
