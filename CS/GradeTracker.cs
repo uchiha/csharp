@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -58,6 +59,8 @@ namespace CS
             }
 
         }
+
+        public abstract IEnumerator GetEnumerator();
 
         public event NameChangedDelegate NameChanged;
 

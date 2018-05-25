@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -10,6 +11,11 @@ namespace CS
     public class GradeBook : GradeTracker
     {
         protected List<float> grades;
+
+        public override IEnumerator GetEnumerator()
+        {
+            return grades.GetEnumerator();
+        }
 
         // used to be "virtual" but since we implemented GradeTracker
         // need to be "override" to avoid error that this class didn't

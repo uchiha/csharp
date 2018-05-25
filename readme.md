@@ -63,3 +63,40 @@
 - the author generally favors interfaces because in his experience he never looked at an interface and wished that it was an abstract class. However, he saw some abstract classes that should have been interfaces. Because abstract classes can still be rigid and make for a complicated inheritance tree. 
 - using VS, at the Program.cs, GradeTracker was renamed to IGradeTracker then CTRL + . was done. Interface was generated in a new file without any members.
 - working with interfaces increases the flexibility of the software. In the Program.cs case, we can get back at any object but it should be generally implementing the interface. Working with interfaces also enables us to work with a wide variety of objects.
+- lets say in Program.cs, in the method WriteResults, we also wanted to print out the individual grades. SO we'll do a foreach statement. 
+  foreach (float grade in book)
+  {
+       Console.WriteLine(grade);
+  }
+  at this point, the compiler will give an error because "book" can't be used on foreach. Can't iterate with it. Technically speaking, an object that implements IGradeTracker (book in this instance) is not guaranteed to have a public method GetEnumerator. At the lowest level, the object needs that method to be enumerable.
+- its more common if we have a type that explicitly wants to be enumerable, we'll say that that type inherits from IEnumerable interface. 
+- so IGradeTracker was changed to implement IEnumerable:
+  -----> "internal interface IGradeTracker : IEnumerable"
+- this results as, in Program.cs, "book" no longer has that error. :) The reason is, due to our changes, that guarantees that anything that implements an IGradeTracker is guaranteed to have GetEnumerator.
+- the issue now is when we build, GradeTracker.cs will have an issue: "Error	CS0535	'GradeTracker' does not implement interface member 'IEnumerable.GetEnumerator()'"
+- our abstract base class GradeTracker that implements IGradeTracker does not have a definition for "GetEnumerator()" This happened because we made IGradeTracker implement IEnumerable, that demands GetEnumerator() to be implemented. Checking IEnumerable with F12:
+  namespace System.Collections
+  {
+		[ComVisible(true)]
+		[Guid("496B0ABE-CDEE-11d3-88E8-00902754C43A")]
+		public interface IEnumerable
+		{
+			IEnumerator GetEnumerator();
+		}
+  }
+  ==> this means that we need to implement GetEnumerator() that returns another interface that is IEnumerator, something that implements that knows how to step through a collection one object at a time. This is an extremely powerful interface definition because we can hide all sorts of work behind an IEnumerable and IEnumerator.
+- we need to guarantee that GradeTracker implements the interface:
+  -----> "public IEnumerator GetEnumerator();"
+- the problem is that GradeTracker does not know how to enumerate that grades that it holds. SO instead of that we need to declare it abstract:
+  -----> "public abstract IEnumerator GetEnumerator();"
+  AND this should be ok because in the perspective of GradeTracker, as designed, we don't know where the grades are stored. Are they in memory in a List, database, behind service call?
+- now, the problem is that if we build:
+  -----> "Error	CS0534	'GradeBook' does not implement inherited abstract member 'GradeTracker.GetEnumerator()'"
+- the problem was pushed up one class, to GradeBook and we need to implement this now because GradeBook is not an abstract class. Fortunately: 
+  -----> "protected List<float> grades;"
+  we have this in GradeBook and a List is something that is also an IEnumerable. All collection classes in .NET implement the IEnumerable interface. Thus:
+  public override IEnumerator GetEnumerator()
+  {
+       return grades.GetEnumerator();
+  }
+- THIS IS THE GREAT ADVANTAGE of interfaces wherein, we build powerful abstractions and hide complexities behind simple polymorph.

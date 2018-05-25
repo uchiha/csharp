@@ -1,8 +1,9 @@
-﻿using System.IO;
+﻿using System.Collections;
+using System.IO;
 
 namespace CS
 {
-    internal interface IGradeTracker
+    internal interface IGradeTracker : IEnumerable
     {
         // note that it does not make sense to add
         // access modifier details on an interface because
